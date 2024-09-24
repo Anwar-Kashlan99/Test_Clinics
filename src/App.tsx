@@ -22,6 +22,7 @@ import { Toaster } from "./components/ui/toaster";
 function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const user = useSelector((state: RootState) => state.auth.userDetails);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
   // Define public routes where the sidebar should not be shown
   const publicRoutes = ["/login", "/unauthorized"];
@@ -33,9 +34,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex size-full flex-col">
         <div className="root-layout">
           <img src={logo} alt="menu icon" className="size-8" />
-          <div>
-            <MobileNav user={user} />
-          </div>
+          <div>{isAuth && <MobileNav user={user} />}</div>
         </div>
         {children}
       </div>
